@@ -133,6 +133,9 @@ class ChartingState extends MusicBeatState
 
 	public static var latestChartVersion = "2";
 
+	//note type
+	var addedNoteType:Note.NoteType = Note.NoteType.NT_Normal;
+	
 	override function create()
 	{
 		curSection = lastSection;
@@ -1050,6 +1053,7 @@ class ChartingState extends MusicBeatState
 		var gfVersions:Array<String> = CoolUtil.coolTextFile(Paths.txt('data/gfVersionList'));
 		var stages:Array<String> = CoolUtil.coolTextFile(Paths.txt('data/stageList'));
 		var noteStyles:Array<String> = CoolUtil.coolTextFile(Paths.txt('data/noteStyleList'));
+		var noteTypes:Array<String> = CoolUtil.coolTextFile(Paths.txt('data/noteTypeList'));
 
 		var player1DropDown = new FlxUIDropDownMenu(10, 100, FlxUIDropDownMenu.makeStrIdLabelArray(characters, true), function(character:String)
 		{
@@ -1221,8 +1225,18 @@ class ChartingState extends MusicBeatState
 		check_mustHitSection.checked = true;
 		// _song.needsVoices = check_mustHit.checked;
 
-		check_altAnim = new FlxUICheckBox(10, 340, null, null, "Alternate Animation", 100);
-		check_altAnim.name = 'check_altAnim';
+		// check_altAnim = new FlxUICheckBox(10, 340, null, null, "Alternate Animation", 100);
+		// check_altAnim.name = 'check_altAnim';
+		var altAnimations:Array<String> = CoolUtil.coolTextFile(Paths.txt('data/altAnimationList'));
+
+		var altAnimLabel = new FlxText(10,240,100,'Animation Set');
+		var check_altAnim = new FlxUIDropDownMenu(10, 260, FlxUIDropDownMenu.makeStrIdLabelArray(altAnimations, true), function(character:String)
+		{
+			//_song.player1 = characters[Std.parseInt(character)];
+		});
+		check_altAnim.selectedLabel = altAnimations[0];
+
+
 
 		var refresh = new FlxButton(10, 60, 'Refresh Section', function() {
 			var section = getSectionByTime(Conductor.songPosition);
@@ -1231,13 +1245,14 @@ class ChartingState extends MusicBeatState
 				return;
 
 			check_mustHitSection.checked = section.mustHitSection;
-			check_altAnim.checked = section.altAnim;
+			//check_altAnim.checked = section.altAnim;
 		});
 
 		tab_group_section.add(refresh);
 		tab_group_section.add(stepperCopy);
 		tab_group_section.add(stepperCopyLabel);
 		tab_group_section.add(check_mustHitSection);
+		tab_group_section.add(altAnimLabel);
 		tab_group_section.add(check_altAnim);
 		tab_group_section.add(copyButton);
 		tab_group_section.add(clearSectionButton);

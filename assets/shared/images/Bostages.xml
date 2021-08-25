@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TextureAtlas imagePath="Bostages.png">
+	<SubTexture name="Bostages0000" x="0" y="1917" width="1820" height="639"/>
+	<SubTexture name="Bostages0001" x="0" y="1278" width="1820" height="639"/>
+	<SubTexture name="Bostages0002" x="0" y="639" width="1820" height="639"/>
+	<SubTexture name="Bostages0003" x="0" y="0" width="1820" height="639"/>
+	<SubTexture name="Bostages0004" x="0" y="0" width="1820" height="639"/>
+	<SubTexture name="Bostages0005" x="0" y="0" width="1820" height="639"/>
+	<SubTexture name="Bostages0006" x="0" y="0" width="1820" height="639"/>
+	<SubTexture name="Bostages0007" x="0" y="0" width="1820" height="639"/>
+	<SubTexture name="Bostages0008" x="0" y="0" width="1820" height="639"/>
+	<SubTexture name="Bostages0009" x="0" y="0" width="1820" height="639"/>
+	<SubTexture name="Bostages0010" x="0" y="0" width="1820" height="639"/>
+</TextureAtlas>

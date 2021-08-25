@@ -213,6 +213,8 @@ class PlayState extends MusicBeatState
 	var bgGirls:BackgroundGirls;
 	var wiggleShit:WiggleEffect = new WiggleEffect();
 
+	var doctors:FlxSprite;
+	
 	var talking:Bool = true;
 
 	public var songScore:Int = 0;
@@ -882,7 +884,7 @@ class PlayState extends MusicBeatState
 							add(waveSpriteFG);
 						 */
 					}
-				default:
+				/*default:
 					{
 						defaultCamZoom = 0.9;
 						curStage = 'stage';
@@ -915,9 +917,54 @@ class PlayState extends MusicBeatState
 							}
 						stageCurtains.scrollFactor.set(1.3, 1.3);
 						stageCurtains.active = false;
-
+	
 						add(stageCurtains);
 					}
+					*/
+			default:
+				{
+					defaultCamZoom = 0.54;
+					curStage = 'asylum';
+					var bg:FlxSprite = new FlxSprite(-1000, -430).loadGraphic(Paths.image('asylum'));
+					bg.antialiasing = false;
+					bg.active = false;
+					////*********************************************************************************************
+					//// This is stuff other stage code had that you didn't, BUT you didn't seem to need to need it.
+					//// Whether or not you wanna mess with it is up to you. Unless it turns out we need them later
+					//// on, but it doesn't seem that way for now.
+					////*********************************************************************************************
+					//bg.scrollFactor.set(0.2, 0.2);
+					//bg.setGraphicSize(Std.int(bg.width * 0.54));
+					////
+					add(bg);
+
+					doctors = new FlxSprite(25, 340);
+					doctors.frames = Paths.getSparrowAtlas('Bostages');
+					doctors.animation.addByPrefix('bop', 'Bostages', 24, false);
+					doctors.antialiasing = false;
+					////   ----- Same as above -----
+					//doctors.scrollFactor.set(0.2, 0.2);
+					//doctors.setGraphicSize(Std.int(doctors.width * 0.54));
+					////
+					doctors.updateHitbox();
+					  // Animated bg bits are added like this now. The animation "play" function is called down below too.
+					if(FlxG.save.data.distractions)
+						{
+							add(doctors);
+						}
+
+					/*defaultCamZoom = 0.9;
+					curStage = 'stage';
+					var bg:FlxSprite = new FlxSprite(-600, -200).loadGraphic(Paths.image('stageback'));
+					bg.antialiasing = true;
+					bg.scrollFactor.set(0.9, 0.9);
+					bg.active = false;
+					add(bg);
+
+
+						add(stageCurtains);
+						*/
+				}
 			}
 		}
 		// defaults if no gf was found in chart
@@ -1249,6 +1296,9 @@ class PlayState extends MusicBeatState
 		{
 			switch (StringTools.replace(curSong, " ", "-").toLowerCase())
 			{
+				//case "stimulation":
+					//pearlyIntro(doof);
+
 				case "winter-horrorland":
 					var blackScreen:FlxSprite = new FlxSprite(0, 0).makeGraphic(Std.int(FlxG.width * 2), Std.int(FlxG.height * 2), FlxColor.BLACK);
 					add(blackScreen);
@@ -1385,6 +1435,7 @@ class PlayState extends MusicBeatState
 			}
 		});
 	}
+
 
 	var startTimer:FlxTimer;
 	var perfectMode:Bool = false;
@@ -3991,7 +4042,7 @@ class PlayState extends MusicBeatState
 		FlxG.stage.window.onFocusIn.add(focusIn);
 
 		var ourSource:String = "assets/videos/daWeirdVid/dontDelete.webm";
-		WebmPlayer.SKIP_STEP_LIMIT = 90;
+		//WebmPlayer.SKIP_STEP_LIMIT = 90;
 		var str1:String = "WEBM SHIT";
 		webmHandler = new WebmHandler();
 		webmHandler.source(ourSource);
@@ -4523,6 +4574,12 @@ class PlayState extends MusicBeatState
 
 		switch (curStage)
 		{
+
+			case 'asylum':
+				if(FlxG.save.data.distractions){
+					doctors.animation.play('bop', true);
+				}
+
 			case 'school':
 				if (FlxG.save.data.distractions)
 				{
